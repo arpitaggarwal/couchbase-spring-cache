@@ -12,7 +12,6 @@ import com.test.service.IEmployeeService;
 public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
-	// @Cacheable("books")
 	@Cacheable(EMPLOYEE_CACHE)
 	public Employee getEmployeeById(final int id) {
 		simulateSlowService();

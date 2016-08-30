@@ -17,12 +17,13 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
+import com.couchbase.client.java.cluster.ClusterManager;
 import com.couchbase.client.spring.cache.CacheBuilder;
 import com.couchbase.client.spring.cache.CouchbaseCacheManager;
 
 @Configuration
 @EnableCaching
-@PropertySource(value = { "classpath:application.properties" })
+@PropertySource(value = { "classpath:/couchbase/cache.properties" })
 @ComponentScan(basePackages = { "com.test.service" })
 public class ApplicationConfig {
 
@@ -32,8 +33,14 @@ public class ApplicationConfig {
 	@Value("#{'${couchbase.bucket.default}'}")
 	private String couchbaseBucketDefault;
 
-	@Value("#{'${couchbase.cache.employee}'}")
-	private String couchbaseCacheEmployee;
+	@Value("#{'${couchbase.bucket.default.username}'}")
+	private String couchbaseBucketDefaultUsername;
+
+	@Value("#{'${couchbase.bucket.default.password}'}")
+	private String couchbaseBucketDefaultPassword;
+
+	@Value("#{'${couchbase.cache}'}")
+	private String couchbaseCache;
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -42,23 +49,29 @@ public class ApplicationConfig {
 
 	@Bean(destroyMethod = "disconnect")
 	public Cluster cluster() {
-		List<String> nodes = Arrays.asList(couchbaseClusterHost);
-		// this connects to a Couchbase instance running on localhost
+		final List<String> nodes = Arrays.asList(couchbaseClusterHost
+				.split(","));
 		return CouchbaseCluster.create(nodes);
 	}
 
 	@Bean(destroyMethod = "close")
 	public Bucket bucket() {
-		// this will be the bucket where every cache-related data will be stored
-		// note that the bucket "default" must exist
-		return cluster().openBucket(couchbaseBucketDefault, "");
+		return cluster().openBucket(couchbaseBucketDefault,
+				couchbaseBucketDefaultPassword);
+	}
+
+	@Bean
+	public ClusterManager clusterManager() {
+		return cluster().clusterManager(couchbaseBucketDefaultUsername,
+				couchbaseBucketDefaultPassword);
 	}
 
 	@Bean
 	public CacheManager cacheManager() {
-		Map<String, CacheBuilder> cache = new HashMap<>();
-		// we'll make this cache manager recognize a single cache named "books"
-		cache.put(couchbaseCacheEmployee, CacheBuilder.newInstance(bucket()));
+		final Map<String, CacheBuilder> cache = new HashMap<>();
+		for (final String appCache : couchbaseCache.split(",")) {
+			cache.put(appCache, CacheBuilder.newInstance(bucket()));
+		}
 		return new CouchbaseCacheManager(cache);
 	}
 
