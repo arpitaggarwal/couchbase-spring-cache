@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.cluster.ClusterManager;
 import com.test.config.ApplicationConfig;
 import com.test.main.Main.Runner;
@@ -27,11 +28,15 @@ public class MainTest {
 	@Autowired
 	private ClusterManager clusterManager;
 	
+	@Autowired
+	private Bucket bucketBeerSample;
+	
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		main.setEmployeeService(employeeService);
 		main.setClusterManager(clusterManager);
+		main.setBucketBeerSample(bucketBeerSample);
 	}
 
 	@Test

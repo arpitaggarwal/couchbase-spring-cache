@@ -18,6 +18,8 @@ import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
 import com.couchbase.client.java.cluster.ClusterManager;
+import com.couchbase.client.java.env.CouchbaseEnvironment;
+import com.couchbase.client.java.env.DefaultCouchbaseEnvironment;
 import com.couchbase.client.spring.cache.CacheBuilder;
 import com.couchbase.client.spring.cache.CouchbaseCacheManager;
 
@@ -32,6 +34,9 @@ public class ApplicationConfig {
 
 	@Value("#{'${couchbase.bucket.default}'}")
 	private String couchbaseBucketDefault;
+
+	@Value("#{'${couchbase.bucket.beer-sample}'}")
+	private String couchbaseBucketBeerSample;
 
 	@Value("#{'${couchbase.bucket.default.username}'}")
 	private String couchbaseBucketDefaultUsername;
@@ -51,12 +56,24 @@ public class ApplicationConfig {
 	public Cluster cluster() {
 		final List<String> nodes = Arrays.asList(couchbaseClusterHost
 				.split(","));
-		return CouchbaseCluster.create(nodes);
+		return CouchbaseCluster.create(couchbaseEnvironment(), nodes);
+	}
+
+	@Bean
+	public CouchbaseEnvironment couchbaseEnvironment() {
+		return DefaultCouchbaseEnvironment.builder().sslEnabled(false)
+				.connectTimeout(1000).build();
 	}
 
 	@Bean(destroyMethod = "close")
 	public Bucket bucket() {
 		return cluster().openBucket(couchbaseBucketDefault,
+				couchbaseBucketDefaultPassword);
+	}
+
+	@Bean(destroyMethod = "close")
+	public Bucket bucketBeerSample() {
+		return cluster().openBucket(couchbaseBucketBeerSample,
 				couchbaseBucketDefaultPassword);
 	}
 

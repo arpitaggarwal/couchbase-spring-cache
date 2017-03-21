@@ -26,6 +26,16 @@ Cluster cluster = CouchbaseCluster.create(nodes);
 ```
 
 
+## [Couchbase Workbench][couchbase-workbench]
+
+It provides a rich graphical user interface to prepare and execute simple to complex [N1QL][n1ql] queries, you can found tutorial to learn N1QL queries here - http://query.pub.couchbase.com/tutorial/#1
+
+[n1ql]: https://www.couchbase.com/n1ql
+[couchbase-workbench]: https://developer.couchbase.com/documentation/server/4.1/tools/query-workbench-intro.html
+
+
+
+
 Sources:
 
 1. http://blog.couchbase.com/2015/december/couchbase-spring-cache
