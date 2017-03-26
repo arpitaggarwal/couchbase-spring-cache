@@ -62,7 +62,7 @@ public class ApplicationConfig {
 	@Bean
 	public CouchbaseEnvironment couchbaseEnvironment() {
 		return DefaultCouchbaseEnvironment.builder().sslEnabled(false)
-				.connectTimeout(1000).build();
+				.connectTimeout(10000).build();
 	}
 
 	@Bean(destroyMethod = "close")

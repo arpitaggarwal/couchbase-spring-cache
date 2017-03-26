@@ -27,16 +27,16 @@ public class MainTest {
 
 	@Autowired
 	private ClusterManager clusterManager;
-	
+
 	@Autowired
-	private Bucket bucketBeerSample;
-	
+	private Bucket bucket;
+
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		main.setEmployeeService(employeeService);
 		main.setClusterManager(clusterManager);
-		main.setBucketBeerSample(bucketBeerSample);
+		main.setBucket(bucket);
 	}
 
 	@Test
