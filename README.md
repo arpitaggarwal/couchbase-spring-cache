@@ -25,6 +25,18 @@ List<String> nodes = Arrays.asList("192.168.56.101", "192.168.56.102");
 Cluster cluster = CouchbaseCluster.create(nodes);
 ```
 
+## Create PRIMARY INDEX on bucket
+
+```
+CREATE PRIMARY INDEX `default-primary-index` ON `default` USING GSI;
+```
+
+## Select all indexes
+
+```
+SELECT * FROM system:indexes WHERE name="default-primary-index";
+```
+
 
 ## [Couchbase Workbench][couchbase-workbench]
 
