@@ -38,6 +38,13 @@ SELECT * FROM system:indexes WHERE name="default-primary-index";
 ```
 
 
+## GET all KEYS
+
+```
+http://127.0.0.1:8092/bucket_name/_design/cache/_view/view_name?connection_timeout=60000&inclusive_end=true&limit=1000&skip=0&stale=false
+```
+
+
 ## [Couchbase Workbench][couchbase-workbench]
 
 It provides a rich graphical user interface to prepare and execute simple to complex [N1QL][n1ql] queries, you can found tutorial to learn N1QL queries here - http://query.pub.couchbase.com/tutorial/#1
