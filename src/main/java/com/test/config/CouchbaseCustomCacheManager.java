@@ -3,7 +3,6 @@ package com.test.config;
 import java.util.Map;
 
 import org.springframework.cache.Cache;
-
 import com.couchbase.client.spring.cache.CacheBuilder;
 import com.couchbase.client.spring.cache.CouchbaseCacheManager;
 
@@ -89,7 +88,10 @@ public class CouchbaseCustomCacheManager extends CouchbaseCacheManager {
 			try {
 				delegate.evict(key);
 			} catch (Exception e) {
-				throw e;
+				try {
+					handleErrors(e);
+				} catch (Exception e1) {
+				}
 			}
 		}
 
@@ -98,7 +100,10 @@ public class CouchbaseCustomCacheManager extends CouchbaseCacheManager {
 			try {
 				delegate.clear();
 			} catch (Exception e) {
-				throw e;
+				try {
+					handleErrors(e);
+				} catch (Exception e1) {
+				}
 			}
 		}
 
