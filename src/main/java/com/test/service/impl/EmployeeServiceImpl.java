@@ -14,17 +14,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Override
 	@Cacheable(EMPLOYEE_CACHE)
 	public Employee getEmployeeById(final int id) {
-		simulateSlowService();
+		System.out.println("Employee Service Called");
 		return new Employee(id, "A");
 	}
-
-	private void simulateSlowService() {
-		try {
-			long time = 5000L;
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
 }

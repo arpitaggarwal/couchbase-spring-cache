@@ -21,12 +21,11 @@ import com.couchbase.client.java.cluster.ClusterManager;
 import com.couchbase.client.java.env.CouchbaseEnvironment;
 import com.couchbase.client.java.env.DefaultCouchbaseEnvironment;
 import com.couchbase.client.spring.cache.CacheBuilder;
-import com.couchbase.client.spring.cache.CouchbaseCacheManager;
 
 @Configuration
 @EnableCaching
 @PropertySource(value = { "classpath:/couchbase/cache.properties" })
-@ComponentScan(basePackages = { "com.test.service" })
+@ComponentScan(basePackages = { "com.test.controller", "com.test.service" })
 public class ApplicationConfig {
 
 	@Value("#{'${couchbase.cluster.host}'}")
@@ -89,7 +88,7 @@ public class ApplicationConfig {
 		for (final String appCache : couchbaseCache.split(",")) {
 			cache.put(appCache, CacheBuilder.newInstance(bucket()));
 		}
-		return new CouchbaseCacheManager(cache);
+		return new CouchbaseCustomCacheManager(cache);
 	}
 
 }

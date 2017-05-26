@@ -9,7 +9,7 @@
 
  - username - Administrator
 
- - password - ****
+ - password - password
 
 
 ## Download Couchbase Server

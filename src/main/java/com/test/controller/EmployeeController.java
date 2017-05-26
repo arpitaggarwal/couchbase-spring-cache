@@ -18,6 +18,6 @@ public class EmployeeController {
 		System.out.println("hello");
 		employeeService.getEmployeeById(1);
 		System.out.println("welcome");
-		return "AddNote";
+		return "added";
 	}
 }
