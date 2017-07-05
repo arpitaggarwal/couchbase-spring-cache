@@ -4,7 +4,13 @@
 
 1. Install (if not) Java 8 and Maven
 
-2. Move to [couchbase-spring-cache][couchbase-spring-cache] directory and run `mvn spring-boot:run` command - It build and deploy the project on default embedded Tomcat server running on port `8080`
+2. Modify Couchbase Cache configuration in [cache.properties][cache-properties]
+
+3. Move to [couchbase-spring-cache][couchbase-spring-cache] directory and run `mvn spring-boot:run` command - It build and deploy the project on default embedded Tomcat server running on port `9901`
+
+
+4. Get employee from Couchbase Cache as `http://localhost:9901/employee/get`
+
 
 
 ## Application Configuration
@@ -71,4 +77,6 @@ Sources:
 3. http://docs.couchbase.com/developer/java-2.0/managing-connections.html
 
 
-[couchbase-spring-cache]:https://github.com/arpitaggarwal/couchbase-spring-cache 
+[couchbase-spring-cache]:https://github.com/arpitaggarwal/couchbase-spring-cache
+
+[cache-properties]:https://github.com/arpitaggarwal/couchbase-spring-cache/blob/master/src/main/resources/couchbase/cache.properties
