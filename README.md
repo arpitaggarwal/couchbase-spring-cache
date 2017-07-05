@@ -1,6 +1,13 @@
 # couchbase-spring-cache
 
+## Steps to run the Application
 
+1. Install (if not) Java 8 and Maven
+
+2. Move to [couchbase-spring-cache][couchbase-spring-cache] directory and run `mvn spring-boot:run` command - It build and deploy the project on default embedded Tomcat server running on port `8080`
+
+
+## Application Configuration
  - Databases Path - `/Users/ArpitAggarwal/Library/Application Support/Couchbase/var/lib/couchbase/data`
 
  - Indexes Path - `/Users/ArpitAggarwal/Library/Application Support/Couchbase/var/lib/couchbase/data`
@@ -62,3 +69,6 @@ Sources:
 2. http://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html
 
 3. http://docs.couchbase.com/developer/java-2.0/managing-connections.html
+
+
+[couchbase-spring-cache]:https://github.com/arpitaggarwal/couchbase-spring-cache 
